@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'hello world');
+Route::apiResource('words', \App\Http\Controllers\WordController::class);
