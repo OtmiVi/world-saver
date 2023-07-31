@@ -1,9 +1,12 @@
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">{{ title }}</span>
+      <router-link to="/"><span class="navbar-brand mb-0 h1">{{ title }}</span></router-link>
     </div>
   </nav>
+  <router-link to="add">
+    <button type="button" class="btn btn-primary">Primary</button>
+  </router-link>
 </template>
 
 <script>

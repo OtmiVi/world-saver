@@ -1,5 +1,6 @@
 <template>
 <NavBar title="Title"/>
+  <router-view></router-view>
 </template>
 
 <script>
