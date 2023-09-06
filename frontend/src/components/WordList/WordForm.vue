@@ -4,6 +4,9 @@
       <div v-if="validationError" class="alert alert-danger mt-3">
         {{ validationError }}
       </div>
+      <div v-if="success" class="alert alert-success mt-3">
+        {{ success }}
+      </div>
       <div class="form-group">
         <label for="word">Word:</label>
         <input v-model="word" type="text" class="form-control" id="word" name="word" placeholder="Enter the word">
@@ -19,6 +22,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: 'WordForm',
 
@@ -26,7 +31,8 @@ export default {
     return {
       word: '',
       translation: '',
-      validationError: ''
+      validationError: '',
+      success: ''
     };
   },
   methods: {
@@ -41,19 +47,13 @@ export default {
     },
     async sendDataToAPI() {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/words', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            word: this.word,
-            translation: this.translation,
-          }),
+        const response = await axios.post('http://127.0.0.1:8000/api/words', {
+          word: this.word,
+          translation: this.translation,
         });
 
-        if (response.ok) {
-          console.log('Data sent to API successfully.');
+        if (response.status === 201) {
+          this.success = 'Data sent to API successfully.';
           this.word = '';
           this.translation = '';
           this.validationError = '';
